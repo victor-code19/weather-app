@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="icon" href="/img/weather-icon.png">
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            {{>header}}
+            <div class="site-content">
+                <p>{{title}}</p>
+                <form>
+                    <input type="text" placeholder="Location">
+                    <button class="button-17">Check weather</button>
+                </form>
+                <p id="message-1"></p>
+                <p id="message-2"></p>
+            <div id="map" style="width: 610px; height: 600px;"></div>
+            </div>
+            {{>footer}}
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU&callback=Function.prototype"></script>
+        <script src="/js/app.js"></script>
+    </body>
+</html>
