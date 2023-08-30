@@ -1,8 +1,3 @@
-const weatherForm = document.querySelector('form');
-const search = document.querySelector('input');
-const messageOne = document.querySelector('#message-1');
-const messageTwo = document.querySelector('#message-2');
-
 const highlightCurrentPage = () => {
   let current = 0;
   for (let i = 0; i < document.links.length; i++) {
@@ -15,28 +10,6 @@ const highlightCurrentPage = () => {
 
 window.addEventListener('load', () => {
   highlightCurrentPage();
-});
-
-weatherForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const location = search.value;
-
-  messageOne.textContent = 'Loading...';
-  messageTwo.textContent = '';
-
-  await fetch(`http://localhost:3000/weather?search=${location}`).then((response) => {
-    response.json().then((data) => {
-      if (data.error) {
-        messageOne.textContent = data.error;
-      } else {
-        messageOne.textContent = data.location;
-        messageTwo.textContent = data.forecast;
-
-        initMap({ lat: data.coords.latitude, lng: data.coords.longitude }, data.location);
-      }
-    });
-  });
 });
 
 function initMap(markerCoords, locationName) {
@@ -53,3 +26,30 @@ function initMap(markerCoords, locationName) {
 }
 
 initMap();
+
+const weatherForm = document.querySelector('form');
+const search = document.querySelector('input');
+const messageOne = document.querySelector('#message-1');
+const messageTwo = document.querySelector('#message-2');
+
+weatherForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const location = search.value;
+
+  messageOne.textContent = 'Loading...';
+  messageTwo.textContent = '';
+
+  await fetch(`/weather?search=${location}`).then((response) => {
+    response.json().then((data) => {
+      if (data.error) {
+        messageOne.textContent = data.error;
+      } else {
+        messageOne.textContent = data.location;
+        messageTwo.textContent = data.forecast;
+
+        initMap({ lat: data.coords.latitude, lng: data.coords.longitude }, data.location);
+      }
+    });
+  });
+});
